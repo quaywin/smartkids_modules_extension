@@ -35,8 +35,8 @@ namespace BoardShield {
 
     //% block
     //% group="LED"
-    export function connectTinyLedRGB(pin: AnalogPin) {
-        strip = neopixel.create(DigitalPin.P14, 4, NeoPixelMode.RGB)
+    export function connectTinyLedRGB(pin: DigitalPin) {
+        strip = neopixel.create(pin, 4, NeoPixelMode.RGB)
         led1 = strip.range(0, 1)
         led2 = strip.range(1, 1)
         led3 = strip.range(2, 1)
@@ -44,7 +44,7 @@ namespace BoardShield {
     }
 
     //% block
-    //% speed.min=1 speed.max=4
+    //% number.min=1 number.max=4
     //% group="LED"
     export function showColorTinyLed(number: number, color: NeoPixelColors) {
         switch (number) {
