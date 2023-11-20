@@ -10,7 +10,9 @@
     "files": [
         "main.blocks",
         "main.ts",
-        "README.md"
+        "README.md",
+        "background.ts",
+        "ir_receiver.ts"
     ],
     "testFiles": [
         "test.ts"

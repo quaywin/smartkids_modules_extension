@@ -1,12 +1,9 @@
-
-let strip: neopixel.Strip = null
-let led1: neopixel.Strip = null
-let led2: neopixel.Strip = null
-let led3: neopixel.Strip = null
-let led4: neopixel.Strip = null
-
-//% groups="['Fan', '4 LED', 'IR']"
 namespace BoardShield {
+    let led4: neopixel.Strip = null
+    let led3: neopixel.Strip = null
+    let led2: neopixel.Strip = null
+    let led1: neopixel.Strip = null
+    let strip: neopixel.Strip = null
 
     //% block
     //% group="Fan"
@@ -75,4 +72,6 @@ namespace BoardShield {
         led3.showColor(neopixel.colors(color))
         led4.showColor(neopixel.colors(color))
     }
+
+    
 }
