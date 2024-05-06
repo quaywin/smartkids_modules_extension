@@ -73,5 +73,13 @@ namespace BoardShield {
         led4.showColor(neopixel.colors(color))
     }
 
+    //% block
+    //% group="Ultils"
+    // export function scanI2C() {
+    //     for (let index = 0; index <100; index++) {
+    //         const value = pins.i2cReadNumber()
+    //     }
+    // }
+
     
 }
