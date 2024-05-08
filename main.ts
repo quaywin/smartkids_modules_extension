@@ -75,12 +75,14 @@ namespace SK_Modules {
 
     //% block
     //% group="Ultils"
-    export function scanI2C() {
+    export function getI2C() {
+        let address = 0;
         for (let index = 0; index <100; index++) {
             const value = pins.i2cReadNumber(index, NumberFormat.UInt8LE, false);
-            serial.writeString(`${index} - ${value}`);
+            if(value != 0) {
+                address = index
+            }
         }
+        return address;
     }
-
-    
 }
