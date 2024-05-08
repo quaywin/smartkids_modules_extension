@@ -1,4 +1,4 @@
-namespace BoardShield {
+namespace SK_Modules {
     let led4: neopixel.Strip = null
     let led3: neopixel.Strip = null
     let led2: neopixel.Strip = null
