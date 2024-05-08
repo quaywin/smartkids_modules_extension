@@ -1,5 +1,5 @@
 {
-    "name": "board_shield_extension",
+    "name": "sk_modules_extension",
     "description": "",
     "dependencies": {
         "core": "*",

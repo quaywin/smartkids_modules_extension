@@ -75,11 +75,12 @@ namespace SK_Modules {
 
     //% block
     //% group="Ultils"
-    // export function scanI2C() {
-    //     for (let index = 0; index <100; index++) {
-    //         const value = pins.i2cReadNumber()
-    //     }
-    // }
+    export function scanI2C() {
+        for (let index = 0; index <100; index++) {
+            const value = pins.i2cReadNumber(index, NumberFormat.UInt8LE, false);
+            console.log(`${index} - ${value}`);
+        }
+    }
 
     
 }
