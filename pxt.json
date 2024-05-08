@@ -6,7 +6,7 @@
         "radio": "*",
         "microphone": "*",
         "neopixel": "github:microsoft/pxt-neopixel#v0.7.5",
-        "board_shield_extension": "github:quaywin/smartkids_board_shield_extension#f9e72a25a17f6d30f07d252734b42982b9aacc65"
+        "board_shield_extension": "github:quaywin/smartkids_board_shield_extension#d9cea63f2d24c2f5e374a235c41342957a12d65a"
     },
     "files": [
         "main.blocks",
