@@ -1,4 +1,15 @@
 namespace SK_Modules {
+    enum Buttons {
+        Up = 1,
+        Down = 2,
+        Left = 8,
+        LeftUp = 9,
+        LeftDown = 10,
+        Right = 4,
+        RightUp = 5,
+        RightDown = 6
+    }
+
     let led4: neopixel.Strip = null
     let led3: neopixel.Strip = null
     let led2: neopixel.Strip = null
@@ -105,8 +116,10 @@ namespace SK_Modules {
     //% enumName="Buttons"
     //% enumMemberName="button"
     //% enumInitialMembers="Up, Down, Left, Right"
-    export function onDirectionButton(button: number ,handler: () => void) {
-        handler();
+    export function onDirectionButton(button: Buttons ,handler: () => void) {
+        if(button == buttonDirection){
+            handler();
+        }
     }
 
     // set LCD reg
