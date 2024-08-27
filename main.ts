@@ -106,7 +106,7 @@ namespace SK_Modules {
 
     //% block="start Gamepad"
     //% group="Gamepad"
-    export function initGamepad(pin: AnalogPin) {
+    export function initGamepad() {
         const value = pins.i2cReadBuffer(85, 30);
         buttonDirection = value[1];
     }
