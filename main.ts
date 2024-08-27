@@ -115,12 +115,12 @@ namespace SK_Modules {
     //% block="start Gamepad"
     //% group="Gamepad"
     export function initGamepad() {
-        while(true){
+        // while(true){
             const value = pins.i2cReadBuffer(85, 30);
             buttonDirection = value[1];
             console.log(buttonDirection)
-            basic.pause(100)
-        }
+            // basic.pause(100)
+        // }
     }
 
     //% blockId=on_press_direction_button
@@ -130,11 +130,9 @@ namespace SK_Modules {
     //% enumMemberName="button"
     //% enumInitialMembers="Up, Down, Left, Right"
     export function onDirectionButton(button: Buttons ,handler: () => void) {
-        while(true) {
-            if(button == buttonDirection){
-                handler();
-            }
-            basic.pause(100)
+        console.log(buttonDirection)
+        if (button == buttonDirection) {
+            handler();
         }
     }
 
