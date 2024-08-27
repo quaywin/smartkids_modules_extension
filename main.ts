@@ -130,12 +130,11 @@ namespace SK_Modules {
     //% enumMemberName="button"
     //% enumInitialMembers="Up, Down, Left, Right"
     export function onDirectionButton(button: Buttons ,handler: () => void) {
-        console.log('xxx')
-        console.log(button)
-        console.log('aaa')
-        console.log(buttonDirection)
-        if(button == buttonDirection){
-            handler();
+        while(true) {
+            if(button == buttonDirection){
+                handler();
+            }
+            basic.pause(100)
         }
     }
 
