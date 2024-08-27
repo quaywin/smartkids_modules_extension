@@ -115,8 +115,8 @@ namespace SK_Modules {
     //% block="start Gamepad"
     //% group="Gamepad"
     export function initGamepad() {
-        const value = pins.i2cReadBuffer(85, 30);
         while(true){
+            const value = pins.i2cReadBuffer(85, 30);
             buttonDirection = value[1];
             console.log(buttonDirection)
             basic.pause(100)
