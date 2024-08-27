@@ -28,7 +28,7 @@ namespace SK_Modules {
     let BK: number      // backlight control
     let RS: number      // command/data
 
-    let buttonDirection = 0
+    let buttonDirection: Buttons = 0
 
     //% block
     //% group="Fan"
@@ -117,6 +117,7 @@ namespace SK_Modules {
     export function initGamepad() {
         const value = pins.i2cReadBuffer(85, 30);
         buttonDirection = value[1];
+        console.log(buttonDirection)
     }
 
     //% blockId=on_press_direction_button
