@@ -14,7 +14,7 @@ namespace SK_Modules {
         Right = 4,
         //% block="RightUp"
         RightUp = 5,
-        //% block="RightUp"
+        //% block="RightDown"
         RightDown = 6
     }
 
@@ -130,6 +130,10 @@ namespace SK_Modules {
     //% enumMemberName="button"
     //% enumInitialMembers="Up, Down, Left, Right"
     export function onDirectionButton(button: Buttons ,handler: () => void) {
+        console.log('xxx')
+        console.log(button)
+        console.log('aaa')
+        console.log(buttonDirection)
         if(button == buttonDirection){
             handler();
         }
