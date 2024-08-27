@@ -1,12 +1,20 @@
 namespace SK_Modules {
-    enum Buttons {
+    export enum Buttons {
+        //% block="Up"
         Up = 1,
+        //% block="Down"
         Down = 2,
+        //% block="Left"
         Left = 8,
+        //% block="LeftUp"
         LeftUp = 9,
+        //% block="LeftDown"
         LeftDown = 10,
+        //% block="Right"
         Right = 4,
+        //% block="RightUp"
         RightUp = 5,
+        //% block="RightUp"
         RightDown = 6
     }
 
@@ -111,7 +119,8 @@ namespace SK_Modules {
         buttonDirection = value[1];
     }
 
-    //% block="on press button $button"
+    //% blockId=on_press_direction_button
+    //% block="on press direction button $button"
     //% group="Gamepad"
     //% enumName="Buttons"
     //% enumMemberName="button"
