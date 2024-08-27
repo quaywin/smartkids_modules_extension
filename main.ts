@@ -116,8 +116,11 @@ namespace SK_Modules {
     //% group="Gamepad"
     export function initGamepad() {
         const value = pins.i2cReadBuffer(85, 30);
-        buttonDirection = value[1];
-        console.log(buttonDirection)
+        while(true){
+            buttonDirection = value[1];
+            console.log(buttonDirection)
+            basic.pause(100)
+        }
     }
 
     //% blockId=on_press_direction_button
