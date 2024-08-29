@@ -1,5 +1,5 @@
 {
-    "name": "sk_modules_extension - Copy",
+    "name": "sk_modules_extension",
     "description": "",
     "dependencies": {
         "core": "*",
