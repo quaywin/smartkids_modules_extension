@@ -18,6 +18,39 @@ namespace SK_Modules {
         RightDown = 6
     }
 
+    export enum TopButtons {
+        L2 = 3, //21 0 - 255, 20 0-3
+        R2 = 3, // 24 0 - 3, 25 0 -255
+        L1 = 16, //27
+        R1 = 32, // 27
+    }
+
+    enum FunctionButtons {
+        Share = 2, //29
+        Options = 4 // 29
+    }
+
+    enum ActionButtons {
+        //% block="X"
+        X = 1, //27
+        //% block="Circle"
+        Circle = 2,  //27
+        //% block="Triangle"
+        Triangle = 8, //27
+        //% block="Square"
+        Square = 4 //27
+    }
+
+    interface Event {
+        button: Buttons,
+        callback: () => void
+    }
+
+    interface ActionButtonEvent {
+        button: ActionButtons,
+        callback: () => void
+    }
+
     let led4: neopixel.Strip = null
     let led3: neopixel.Strip = null
     let led2: neopixel.Strip = null
@@ -29,6 +62,9 @@ namespace SK_Modules {
     let RS: number      // command/data
 
     let buttonDirection: Buttons = 0
+    let buttonAction: ActionButtons = 0
+    const listEvents: Event[] = []
+    const listActionButtonEvents: ActionButtonEvent[] = []
 
     //% block
     //% group="Fan"
@@ -112,12 +148,25 @@ namespace SK_Modules {
         return address;
     }
 
+    function checkButton(button: Buttons | ActionButtons, targetButton: Buttons | ActionButtons, callback: () => void) {
+        if (button == targetButton) {
+            callback()
+        }
+    }
+
     //% block="start Gamepad"
     //% group="Gamepad"
     export function initGamepad() {
         basic.forever(() => {
             const value = pins.i2cReadBuffer(85, 30);
             buttonDirection = value[1];
+            buttonAction = value[27];
+            for (let i = 0; i < listEvents.length; i++) {
+                const event = listEvents[i]
+                const actionButtonEvent = listActionButtonEvents[i]
+                checkButton(event.button, buttonDirection, event.callback)
+                checkButton(actionButtonEvent.button, buttonAction, event.callback)
+            }
             basic.pause(100)
         })
     }
@@ -128,12 +177,21 @@ namespace SK_Modules {
     //% enumName="Buttons"
     //% enumMemberName="button"
     //% enumInitialMembers="Up, Down, Left, Right"
-    export function onDirectionButton(button: Buttons ,handler: () => void) {
-        basic.forever(() => {
-            if (button == buttonDirection) {
-                handler();
-            }
-            basic.pause(100)
+    export function onDirectionButton(button: Buttons ,callback: () => void) {
+        listEvents.push({
+            button, callback
+        })
+    }
+
+    //% blockId=on_press_action_button
+    //% block="on press action button $button"
+    //% group="Gamepad"
+    //% enumName="Buttons"
+    //% enumMemberName="button"
+    //% enumInitialMembers="X, Circle, Rectangle, Triangle"
+    export function onActionButton(button: ActionButtons, callback: () => void) {
+        listActionButtonEvents.push({
+            button, callback
         })
     }
 
