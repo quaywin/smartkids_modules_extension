@@ -163,8 +163,10 @@ namespace SK_Modules {
             buttonAction = value[27];
             for (let i = 0; i < listEvents.length; i++) {
                 const event = listEvents[i]
-                const actionButtonEvent = listActionButtonEvents[i]
                 checkButton(event.button, buttonDirection, event.callback)
+            }
+            for (let i = 0; i < listActionButtonEvents.length; i++) {
+                const actionButtonEvent = listActionButtonEvents[i]
                 checkButton(actionButtonEvent.button, buttonAction, actionButtonEvent.callback)
             }
             basic.pause(100)
