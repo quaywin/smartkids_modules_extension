@@ -18,6 +18,9 @@ namespace SK_Modules {
         RightDown = 6
     }
 
+    const PCA9685_ADD = 0x40
+    const LED0_ON_L = 0x06
+
     export enum TopButtons {
         L2 = 3, //21 0 - 255, 20 0-3
         R2 = 3, // 24 0 - 3, 25 0 -255
@@ -30,6 +33,18 @@ namespace SK_Modules {
         Options = 4 // 29
     }
 
+    export enum enServo {
+        S1 = 0,
+        S2,
+        S3,
+        S4,
+        S5,
+        S6,
+        S7,
+        S8
+    }
+
+
     export enum ActionButtons {
         //% block="X"
         X = 1, //27
@@ -39,6 +54,13 @@ namespace SK_Modules {
         Triangle = 8, //27
         //% block="Square"
         Square = 4 //27
+    }
+
+    export enum enMotors {
+        M1 = 8,
+        M2 = 10,
+        M3 = 12,
+        M4 = 14
     }
 
     interface Event {
@@ -65,6 +87,19 @@ namespace SK_Modules {
     let buttonAction: ActionButtons = 0
     const listEvents: Event[] = []
     const listActionButtonEvents: ActionButtonEvent[] = []
+
+    function setPwm(channel: number, on: number, off: number): void {
+        if (channel < 0 || channel > 15)
+            return;
+
+        let buf = pins.createBuffer(5);
+        buf[0] = LED0_ON_L + 4 * channel;
+        buf[1] = on & 0xff;
+        buf[2] = (on >> 8) & 0xff;
+        buf[3] = off & 0xff;
+        buf[4] = (off >> 8) & 0xff;
+        pins.i2cWriteBuffer(PCA9685_ADD, buf);
+    }
 
     //% block
     //% group="Fan"
@@ -195,6 +230,60 @@ namespace SK_Modules {
         listActionButtonEvents.push({
             button, callback
         })
+    }
+
+    //% group="Yahboom"
+    //% blockId=servo270 block="Servo(270°)|num %num|value %value"
+    //% weight=96
+    //% blockGap=10
+    //% num.min=1 num.max=4 value.min=0 value.max=270
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
+    export function Servo2(num: enServo, value: number): void {
+
+        // 50hz: 20,000 us
+        let newvalue = Math.map(value, 0, 270, 0, 180);
+        let us = (newvalue * 1800 / 180 + 600); // 0.6 ~ 2.4
+        let pwm = us * 4096 / 20000;
+        setPwm(num, 0, pwm);
+
+    }
+
+    //% group="Yahboom"
+    //% blockId=Mortor block="Motor|%index|speed(-255~255) %speed"
+    //% weight=93
+    //% speed.min=-255 speed.max=255
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function MotorRun(index: enMotors, speed: number): void {
+        speed = speed * 16; // map 255 to 4096
+        if (speed >= 4096) {
+            speed = 4095
+        }
+        if (speed <= -4096) {
+            speed = -4095
+        }
+
+        let a = index
+        let b = index + 1
+
+        if (a > 10) {
+            if (speed >= 0) {
+                setPwm(a, 0, speed)
+                setPwm(b, 0, 0)
+            } else {
+                setPwm(a, 0, 0)
+                setPwm(b, 0, -speed)
+            }
+        }
+        else {
+            if (speed >= 0) {
+                setPwm(b, 0, speed)
+                setPwm(a, 0, 0)
+            } else {
+                setPwm(b, 0, 0)
+                setPwm(a, 0, -speed)
+            }
+        }
+
     }
 
     // set LCD reg
