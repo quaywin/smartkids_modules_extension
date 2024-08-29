@@ -30,7 +30,7 @@ namespace SK_Modules {
         Options = 4 // 29
     }
 
-    enum ActionButtons {
+    export enum ActionButtons {
         //% block="X"
         X = 1, //27
         //% block="Circle"
@@ -188,7 +188,7 @@ namespace SK_Modules {
     //% group="Gamepad"
     //% enumName="Buttons"
     //% enumMemberName="button"
-    //% enumInitialMembers="X, Circle, Rectangle, Triangle"
+    //% enumInitialMembers="X, Square, Circle, Triangle"
     export function onActionButton(button: ActionButtons, callback: () => void) {
         listActionButtonEvents.push({
             button, callback
