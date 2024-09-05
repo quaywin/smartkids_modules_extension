@@ -1,5 +1,7 @@
 namespace SK_Modules {
     export enum Buttons {
+        //% block="No Press"
+        No_Press = 0,
         //% block="Up"
         Up = 1,
         //% block="Down"
@@ -46,6 +48,8 @@ namespace SK_Modules {
 
 
     export enum ActionButtons {
+        //% block="No Press"
+        No_Press = 0,
         //% block="X"
         X = 1, //27
         //% block="Circle"
@@ -196,40 +200,36 @@ namespace SK_Modules {
             const value = pins.i2cReadBuffer(85, 30);
             buttonDirection = value[1];
             buttonAction = value[27];
-            for (let i = 0; i < listEvents.length; i++) {
-                const event = listEvents[i]
-                checkButton(event.button, buttonDirection, event.callback)
-            }
-            for (let i = 0; i < listActionButtonEvents.length; i++) {
-                const actionButtonEvent = listActionButtonEvents[i]
-                checkButton(actionButtonEvent.button, buttonAction, actionButtonEvent.callback)
-            }
-            basic.pause(10)
+            // for (let i = 0; i < listEvents.length; i++) {
+            //     const event = listEvents[i]
+            //     checkButton(event.button, buttonDirection, event.callback)
+            // }
+            // for (let i = 0; i < listActionButtonEvents.length; i++) {
+            //     const actionButtonEvent = listActionButtonEvents[i]
+            //     checkButton(actionButtonEvent.button, buttonAction, actionButtonEvent.callback)
+            // }
+            // basic.pause(10)
         })
     }
 
-    //% blockId=on_press_direction_button
-    //% block="on press direction button $button"
+    //% blockId=gamepad_press_direction_button
+    //% block="press direction button $button"
     //% group="Gamepad"
     //% enumName="Buttons"
     //% enumMemberName="button"
     //% enumInitialMembers="Up, Down, Left, Right"
-    export function onDirectionButton(button: Buttons ,callback: () => void) {
-        listEvents.push({
-            button, callback
-        })
+    export function GamePadDirectionButton(button: Buttons): boolean {
+        return buttonDirection == button;
     }
 
-    //% blockId=on_press_action_button
-    //% block="on press action button $button"
+    //% blockId=gamepad_press_action_button
+    //% block="press action button $button"
     //% group="Gamepad"
     //% enumName="Buttons"
     //% enumMemberName="button"
     //% enumInitialMembers="X, Square, Circle, Triangle"
-    export function onActionButton(button: ActionButtons, callback: () => void) {
-        listActionButtonEvents.push({
-            button, callback
-        })
+    export function GamePadActionButton(button: ActionButtons) {
+        return buttonAction == button;
     }
 
     //% group="Yahboom"
